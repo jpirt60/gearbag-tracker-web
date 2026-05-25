@@ -24,15 +24,18 @@ export default async function DashboardLayout({
             Gear Bag Tracker
           </Link>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground hidden sm:inline">
-              {user.email}
-            </span>
-            <form action={logout}>
-              <Button type="submit" variant="outline" size="sm">
-                Log out
-              </Button>
-            </form>
-          </div>
+  <span className="text-sm text-muted-foreground hidden sm:inline">
+    {user.email}
+  </span>
+  <Button asChild variant="outline" size="sm">
+    <Link href="/dashboard/settings">Settings</Link>
+  </Button>
+  <form action={logout}>
+    <Button type="submit" variant="outline" size="sm">
+      Log out
+    </Button>
+  </form>
+</div>
         </div>
       </header>
       <main className="flex-1">{children}</main>
