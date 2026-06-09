@@ -33,7 +33,7 @@ export default function AccountDeletionPage() {
       <ol className="list-decimal pl-6 space-y-2 mb-6">
         <li>
           Sign in at{" "}
-          
+          <a
             href="https://gearbagtracker.com"
             className="text-blue-600 underline"
           >
