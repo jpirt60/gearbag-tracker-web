@@ -46,7 +46,7 @@ export function SignupForm() {
 
     const supabase = createClient();
 
-    const { error: signupError } = await supabase.auth.signUp({
+    const { data: signupData, error: signupError } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
     });
@@ -57,8 +57,14 @@ export function SignupForm() {
       return;
     }
 
-    // Success — redirect to dashboard
-    // (Email verification is disabled per our architecture decision, so the user is logged in immediately)
+    // With email verification ON, signUp returns a user but NO session
+    // until they confirm. Route them to the check-email screen.
+    if (!signupData.session) {
+      router.push(`/check-email?email=${encodeURIComponent(data.email)}`);
+      return;
+    }
+
+    // Verification OFF — user is logged in immediately
     router.push("/dashboard");
     router.refresh();
   };
