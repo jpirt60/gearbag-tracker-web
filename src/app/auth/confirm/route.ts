@@ -13,7 +13,9 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient();
     const { error } = await supabase.auth.verifyOtp({ type, token_hash });
     if (!error) {
-      redirect(next);
+      // recovery links go to the set-new-password page; everything else proceeds normally
+      const dest = type === "recovery" ? "/update-password" : next;
+      redirect(dest);
     }
   }
   redirect("/auth/error");
